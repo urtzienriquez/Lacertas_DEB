@@ -49,7 +49,7 @@ par.z_m = [3.3181 1.961 2.649];     free.z_m   = [1 1 1];   units.z_m = '-';    
 
 %% set chemical parameters from Kooy2010 
 [phylum, class] = metaData2taxo(metaData);
-[par, units, label, free] = addchem(par, units, label, free, metaData.phylum, metaData.class); 
+[par, units, label, free] = addchem(par, units, label, free, phylum, class); 
 
 %% Pack output: 
 txtPar.units = units; txtPar.label = label; par.free = free; 
