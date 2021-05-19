@@ -62,29 +62,29 @@ function [prdData, info] = predict_Lacerta_strigata(par, data, auxData)
   % time-SVL
   pars_lb = [g k v_Hb]; pars_lbm = [g_m k v_Hb];
   %
-  L_b = L_m * get_lb(pars_lb, f_Ko); L_i = f_Ko * L_m;
+  L_b = L_m * get_lb(pars_lb, f_Kos); L_i = f_Kos * L_m;
   ir_B = 3/ k_M + 3 * L_i/ v; rT_B = TC_Ko/ ir_B; % yr, 1/von Bert growth rate
-  ELw_fKo = (L_i - (L_i - L_b) * exp( - rT_B * tL_fKo(:,1)))/ del_M; % cm, SVL f_Ko
+  ELw_fKo = (L_i - (L_i - L_b) * exp( - rT_B * tL_fKo(:,1)))/ del_M; % cm, SVL f_Kos
   %
-  L_bm = L_mm * get_lb(pars_lbm, f_Ko); L_im = f_Ko * L_mm;
+  L_bm = L_mm * get_lb(pars_lbm, f_Kos); L_im = f_Kos * L_mm;
   ir_B = 3/ k_M + 3 * L_im/ v; rT_B = TC_Ko/ ir_B; % yr, 1/von Bert growth rate
-  ELw_mKo = (L_im - (L_im - L_bm) * exp( - rT_B * tL_mKo(:,1)))/ del_M; % cm, SVL f_Ko
+  ELw_mKo = (L_im - (L_im - L_bm) * exp( - rT_B * tL_mKo(:,1)))/ del_M; % cm, SVL f_Kos
   %
-  L_b = L_m * get_lb(pars_lb, f_Se); L_i = f_Se * L_m;
+  L_b = L_m * get_lb(pars_lb, f_Ses); L_i = f_Ses * L_m;
   ir_B = 3/ k_M + 3 * L_i/ v; rT_B = TC_Se/ ir_B; % yr, 1/von Bert growth rate
-  ELw_fSe = (L_i - (L_i - L_b) * exp( - rT_B * tL_fSe(:,1)))/ del_M; % cm, SVL f_Se
+  ELw_fSe = (L_i - (L_i - L_b) * exp( - rT_B * tL_fSe(:,1)))/ del_M; % cm, SVL f_Ses
   %
-  L_bm = L_mm * get_lb(pars_lbm, f_Se); L_im = f_Se * L_mm;
+  L_bm = L_mm * get_lb(pars_lbm, f_Ses); L_im = f_Ses * L_mm;
   ir_B = 3/ k_M + 3 * L_im/ v; rT_B = TC_Se/ ir_B; % yr, 1/von Bert growth rate
-  ELw_mSe = (L_im - (L_im - L_bm) * exp( - rT_B * tL_mSe(:,1)))/ del_M; % cm, SVL f_Se
+  ELw_mSe = (L_im - (L_im - L_bm) * exp( - rT_B * tL_mSe(:,1)))/ del_M; % cm, SVL f_Ses
   %
-  L_b = L_m * get_lb(pars_lb, f_Kh); L_i = f_Kh * L_m;
+  L_b = L_m * get_lb(pars_lb, f_Khs); L_i = f_Khs * L_m;
   ir_B = 3/ k_M + 3 * L_i/ v; rT_B = TC_Kh/ ir_B; % yr, 1/von Bert growth rate
-  ELw_fKh = (L_i - (L_i - L_b) * exp( - rT_B * tL_fKh(:,1)))/ del_M; % cm, SVL f_Kh
+  ELw_fKh = (L_i - (L_i - L_b) * exp( - rT_B * tL_fKh(:,1)))/ del_M; % cm, SVL f_Khs
   %
-  L_bm = L_mm * get_lb(pars_lbm, f_Kh); L_im = f_Kh * L_mm;
+  L_bm = L_mm * get_lb(pars_lbm, f_Khs); L_im = f_Khs * L_mm;
   ir_B = 3/ k_M + 3 * L_im/ v; rT_B = TC_Kh/ ir_B; % yr, 1/von Bert growth rate
-  ELw_mKh = (L_im - (L_im - L_bm) * exp( - rT_B * tL_mKh(:,1)))/ del_M; % cm, SVL f_Kh
+  ELw_mKh = (L_im - (L_im - L_bm) * exp( - rT_B * tL_mKh(:,1)))/ del_M; % cm, SVL f_Khs
 
   % pack to output
   prdData.tL_fKo = ELw_fKo;
