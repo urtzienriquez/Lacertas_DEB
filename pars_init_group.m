@@ -2,7 +2,7 @@ function [par, metaPar, txtPar] = pars_init_group(metaData)
 
 metaPar.model = {'std','std','std'};
 metaPar.cov_rules = '';
-metaPar.weights.v = 0; % just set to zero now: default for all params
+metaPar.weights.v = 1; 
 
 %% reference parameter (not to be changed) 
 par.T_ref = 293.15;   free.T_ref = 0;   units.T_ref = 'K';        label.T_ref = 'Reference temperature'; 
