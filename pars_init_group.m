@@ -48,6 +48,7 @@ par.t_N = 365;        free.t_N   = 0;   units.t_N = 'd';          label.t_N = 'p
 par.z_m = [3.3181 1.961 2.649];     free.z_m   = [1 1 1];   units.z_m = '-';          label.z_m = 'zoom factor for males'; 
 
 %% set chemical parameters from Kooy2010 
+[phylum, class] = metaData2taxo(metaData);
 [par, units, label, free] = addchem(par, units, label, free, metaData.phylum, metaData.class); 
 
 %% Pack output: 
