@@ -26,7 +26,7 @@ par.h_a = [2.626e-10 7.819e-09 1.339e-08];  free.h_a   = [1 1 1];   units.h_a = 
 par.s_G = 0.0001;     free.s_G   = 0;   units.s_G = '-';          label.s_G = 'Gompertz stress coefficient'; 
 
 %% other parameters 
-par.E_Hpm = 3.329e+04; free.E_Hpm = 1;   units.E_Hpm = 'J';        label.E_Hpm = 'maturity at puberty for males'; 
+par.E_Hpm = [3.329e+04 3.329e+04 3.329e+04]; free.E_Hpm = [1 1 1];   units.E_Hpm = 'J';        label.E_Hpm = 'maturity at puberty for males'; 
 par.E_Hx = 1.476e+03; free.E_Hx  = 0;   units.E_Hx = 'J';         label.E_Hx = 'maturity at fledge/weaning'; 
 par.del_M = [0.28305 0.1765 0.2062];  free.del_M = [1 1 1];   units.del_M = '-';        label.del_M = 'shape coefficient'; 
 par.f = 1;            free.f     = 0;   units.f = '-';            label.f = 'scaled functional response for 0-var data'; 
