@@ -5,3 +5,7 @@ Three species of green lizards: *Lacerta schreiberi*, *Lacerta agilis* and *Lace
 ### Update 19/05/2021
 
 * It produces figures and html-s for each species, but gets stuck producing the comparison html
+
+### Update 20/05/2021
+
+* The estimation is now working :)
