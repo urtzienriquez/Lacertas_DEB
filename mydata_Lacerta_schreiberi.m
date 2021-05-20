@@ -26,13 +26,13 @@ metaData.data_1     = {'LN','Tab'};
 metaData.COMPLETE   = 2.5; % using criteria of LikaKear2011
 
 metaData.author     = {'Urtzi Enriquez-Urzelai'};
-metaData.date_subm  = [2021 5 13];
+metaData.date_subm  = [2021 5 19];
 metaData.email      = {'urtzi.enriquez@gmail.com'};
 metaData.address    = {'CAS, Czech Academy of Sciences'};
 
-metaData.curator    = {'Starrlight Augustine'};
-metaData.email_cur  = {'starrlight.augustine@akvaplan.niva.no'};
-metaData.date_acc   = [2021 5 13];
+metaData.curator    = {'Bas Kooijman'};
+metaData.email_cur  = {'bas.kooijman@bio.vu.nl'};
+metaData.date_acc   = [2021 5 20];
 
 %% set zero-variate data
 data.ab = 96; units.ab = 'd'; label.ab = 'age at birth'; bibkey.ab = {'Marco1994'};
@@ -44,11 +44,11 @@ data.tpm = 575; units.tpm = 'd'; label.tpm = 'time since birth at puberty for ma
 data.am = 3285; units.am = 'd'; label.am = 'life span'; bibkey.am = {'Marco1994'};
   temp.am = C2K(32); units.temp.am = 'K'; label.temp.am = 'temperature';
 
-data.Lb = 2.9; units.Lb = 'cm'; label.Lb = 'length at birth'; bibkey.Lb = {'Marco2011'};
-data.Lp = 8.2; units.Lp = 'cm'; label.Lp = 'length at puberty'; bibkey.Lp = {'Galan1989'};
-data.Lpm = 7.2; units.Lpm = 'cm'; label.Lpm = 'length at puberty for males'; bibkey.Lpm = {'Galan1989'};
-data.Li = 13.1; units.Li = 'cm'; label.Li = 'ultimate length'; bibkey.Li = {'Salvador1988'};
-data.Lim = 12.0; units.Lim = 'cm'; label.Lim = 'ultimate length for males'; bibkey.Lim = {'Salvador1988'};
+data.Lb = 2.9; units.Lb = 'cm'; label.Lb = 'SVL at birth'; bibkey.Lb = {'Marco2011'};
+data.Lp = 8.2; units.Lp = 'cm'; label.Lp = 'SVL at puberty'; bibkey.Lp = {'Galan1989'};
+data.Lpm = 7.2; units.Lpm = 'cm'; label.Lpm = 'SVL at puberty for males'; bibkey.Lpm = {'Galan1989'};
+data.Li = 13.1; units.Li = 'cm'; label.Li = 'ultimate SVL'; bibkey.Li = {'Salvador1988'};
+data.Lim = 12.0; units.Lim = 'cm'; label.Lim = 'ultimate SVL for males'; bibkey.Lim = {'Salvador1988'};
 
 data.Ww0 = 0.6; units.Ww0 = 'g'; label.Ww0 = 'initial wet weight'; bibkey.Ww0 = {'Brito1998'};
 data.Wwb = 0.77; units.Wwb = 'g'; label.Wwb = 'wet weight at birth'; bibkey.Wwb = {'Marco2011'};
@@ -93,7 +93,7 @@ temp.LN = C2K(32); units.temp.LN = 'K'; label.temp.LN = 'temperature';
 bibkey.LN = {'Marco1994'};
 
 % 
-data.Tab = [ ... temperature ?C, age at birth (incubation duration)
+data.Tab = [ ... temperature C, age at birth (incubation duration)
 16.603  111.007
 16.602  108.826
 16.577  106.308
@@ -122,7 +122,7 @@ units.Tab   = {'C', 'd'};  label.Tab = {'temperature', 'incubation duration'};
 bibkey.Tab = 'Monasterio2013';
 
 % t-L data subadults
-data.tL_sa = [ ... % time since birth (yr), SVL (mm); sa = subadults
+data.tL_j = [ ... % time since birth (d), SVL (mm)
 182	30
 182	33.96
 182	33.96
@@ -297,10 +297,14 @@ data.tL_sa = [ ... % time since birth (yr), SVL (mm); sa = subadults
 699	104.4
 699	107.49
 699	112.22];
-data.tL_sa(:,2) = data.tL_sa(:,2) / 10; % convert mm to cm
-units.tL_sa  = {'d', 'cm'};  label.tL_sa = {'time since birth', 'SVL'};  
-% temp.tL_sa   = C2K(32);  units.temp.tL_sa = 'K'; label.temp.tL_sa = 'temperature';
-temp.tL_sa = [ ...
+n = size(data.tL_j,1); for i=2:n; if data.tL_j(i,1) <= data.tL_j(i-1,1);  data.tL_j(i,1) = data.tL_j(i-1,1) + 1e-3; end; end
+data.tL_j(:,2) = data.tL_j(:,2) / 10; % convert mm to cm
+units.tL_j  = {'d', 'cm'};  label.tL_j = {'time since birth', 'SVL'};  
+bibkey.tL_j = 'Salvador1988';
+comment.tL_j = 'Data for juveniles; temperature according to tT data';
+
+% time-temperature for tL_j, tL_f, tL_m
+data.tT = [ ...
     0 25.13272
 	31 20.15374
 	61 16.44665
@@ -326,12 +330,12 @@ temp.tL_sa = [ ...
 	669 29.47372
 	700 28.40540
 	730 25.89117]; 
-units.temp.tL_sa = {'d','C'}; label.temp.tL_sa = {'time','temperature'};
-bibkey.tL_sa = 'Salvador1988';
-comment.tL_sa = 'Data for subadults (Salvador 1988)';
+units.tT = {'d','C'}; label.tT = {'time','temperature'};
+bibkey.tT = 'Salvador1988';
+comment.tT = 'Temperature for tL_j tL_f and tL_m data';
 
 % t-L data females
-data.tL_fem = [ ... % time since birth (yr), SVL (mm); fem = females
+data.tL_f = [ ... % time since birth (d), SVL (mm); fem = females
 1276	91.93011647
 1276	92.92845258
 1276	97.92013311
@@ -358,14 +362,14 @@ data.tL_fem = [ ... % time since birth (yr), SVL (mm); fem = females
 1367	119.8169717
 1367	122.9450915
 1397	116.9550749];
-data.tL_fem(:,2) = data.tL_fem(:,2) / 10; % convert mm to cm
-units.tL_fem  = {'d', 'cm'};  label.tL_fem = {'time since birth', 'SVL'};  
-temp.tL_fem   = C2K(32);  units.temp.tL_fem = 'K'; label.temp.tL_fem = 'temperature';
-bibkey.tL_fem = 'Salvador1988';
-comment.tL_fem = 'Data for females (Salvador 1988)';
+n = size(data.tL_f,1); for i=2:n; if data.tL_f(i,1) <= data.tL_f(i-1,1);  data.tL_f(i,1) = data.tL_f(i-1,1) + 1e-3; end; end
+data.tL_f(:,2) = data.tL_f(:,2) / 10; % convert mm to cm
+units.tL_f  = {'d', 'cm'};  label.tL_f = {'time since birth', 'SVL'};  
+bibkey.tL_f = 'Salvador1988';
+comment.tL_f = 'Data for females; temperature according to tT data';
 
 % t-L data males
-data.tL_ma = [ ... % time since birth (yr), SVL (mm); ma = males
+data.tL_m = [ ... % time since birth (d), SVL (mm); 
 1276	90.85365854
 1276	90.91463415
 1276	93.84146341
@@ -389,11 +393,11 @@ data.tL_ma = [ ... % time since birth (yr), SVL (mm); ma = males
 1336	107.8658537
 1336	117.804878
 1397	118.902439];
-data.tL_ma(:,2) = data.tL_ma(:,2) / 10; % convert mm to cm
-units.tL_ma  = {'d', 'cm'};  label.tL_ma = {'time since birth', 'SVL'};  
-temp.tL_ma   = C2K(32);  units.temp.tL_ma = 'K'; label.temp.tL_ma = 'temperature';
-bibkey.tL_ma = 'Salvador1988';
-comment.tL_ma = 'Data for males (Salvador 1988)';
+n = size(data.tL_m,1); for i=2:n; if data.tL_m(i,1) <= data.tL_m(i-1,1);  data.tL_m(i,1) = data.tL_m(i-1,1) + 1e-3; end; end
+data.tL_m(:,2) = data.tL_m(:,2) / 10; % convert mm to cm
+units.tL_m  = {'d', 'cm'};  label.tL_m = {'time since birth', 'SVL'};  
+bibkey.tL_m = 'Salvador1988';
+comment.tL_m = 'Data for males; ; temperature according to tT data';
 
 % LWw length (SVL) wet weight
 data.LWw = [ ... % length (mm), weight (g)
@@ -577,10 +581,13 @@ comment.LWw = 'Salvador 1988';
 
 %% set weights for all real data
 weights = setweights(data, []);
+weights.tT = 5 * weights.tT;
 weights.ab = 0;
 weights.Ww0 = 0;
-weights.Wwi = 0;
+weights.Wwi = 1;
 weights.Wwim = 0;
+weights.tp = 0;
+weights.tpm = 0;
 
 %% set pseudodata and respective weights
 [data, units, label, weights] = addpseudodata(data, units, label, weights);
@@ -593,32 +600,16 @@ txtData.bibkey = bibkey;
 txtData.comment = comment;
 
 %% Group plots
-set1 = {'LN'}; comment1 = {'repro output'};
+set1 = {'tL_j','tL_f','tL_m'}; comment1 = {'Data for subadults, females, males (Salvador 1988)'};
 metaData.grp.sets = {set1};
 metaData.grp.comment = {comment1};
 
-set2 = {'Tab'}; comment2 = {'incubation duration with temperature'};
-metaData.grp.sets = {set2};
-metaData.grp.comment = {comment2};
-
-set3 = {'tL_sa','tL_fem','tL_ma'}; 
-comment3 = {'Data for subadults, females, males (Salvador 1988)'};
-metaData.grp.sets = {set3};
-metaData.grp.comment = {comment3};
-
-set4 = {'LWw'}; 
-comment4 = {'Length (SVL) against weight (Salvador 1988)'};
-metaData.grp.sets = {set4};
-metaData.grp.comment = {comment4};
-
 %% Discussion points
 D1  = 'Males are assumed to differ from females by {p_Am} and E_Hp';
-metaData.bibkey.D1 = 'D1';
-metaData.discussion = struct('D1',D1);
-
 D2  = 'I set zero weights to ab, Ww0, Wwi and Wwim. ab: it is inconsistent with univariate (Tab) data. Ww0: data comes from a different population in Portugal. Wwi and Wwim: data from a population in Galicia, and obviously inconsistent with the univariate data that comes from Leon.';
-metaData.bibkey.D2 = 'D2';
-metaData.discussion = struct('D2',D2);
+D3  = 'temperature in tL data is assumed to oscillate as T(t) = T_m + T_a*sin(2*pi*(t-t_T)/365)';
+D4  = 'curator: weight for tp and tpm have been set to 0 because of complex temprerature trajectory';
+metaData.discussion = struct('D1',D1, 'D2',D2, 'D3',D3, 'D4',D4);
 
 %% Links
 metaData.links.id_CoL = '3RMVW'; % Cat of Life
@@ -626,20 +617,22 @@ metaData.links.id_EoL = '792821'; % Ency of Life
 metaData.links.id_Wiki = 'Iberian_emerald_lizard'; % Wikipedia
 metaData.links.id_ADW = 'Lacerta_schreiberi'; % Anim Div. Web
 metaData.links.id_Taxo = '49577'; % Taxonomicon
-metaData.links.id_WoRMS = 'some number (replace)';
+metaData.links.id_WoRMS = '';
 metaData.links.id_ReptileDB = 'genus=Lacerta&species=schreiberi';
 
 %% References
 bibkey = 'Brito1998'; type = 'techreport'; bib = [ ...
-'author = {Brito, J. C., Luis, C., Godinho, M. R., Paulo, O. S., Crespo, E. G.}, ' ... 
-'title = {Bases para a Conservação do Lagarto-de-água (Lacerta schreiberi). Estudos de Biologia e Conservação da Natureza. nº 23}, ' ... 
-'institution = {Instituto da Conservação da Natureza, Ministerio do Ambiente}, ' ... 
+'author = {Brito, J. C.and Luis, C. and Godinho, M. R. and Paulo, O. S. and Crespo, E. G.}, ' ... 
+'title = {Bases para a Conserva\c{c}\={a}o do Lagarto-de-\''{a}gua (\emph{Lacerta schreiberi})}, ' ... 
+'series = {Estudos de Biologia e Conserva\c{c}\={a}o da Natureza}, ' ...
+'institution = {Instituto da Conserva\c{c}\={a}o da Natureza, Ministerio do Ambiente}, ' ... 
+'volume = {23}, ' ...
 'year = {1998}'];
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'Galan1984'; type = 'article'; bib = [ ...
-'author = {Galán, P.}, ' ... 
-'title = {Estudio sobre la biometría, folidosis, diseño y coloración de Lacerta schreiberi Bedriaga, 1878. (Sauria, Lacertidae)}, ' ... 
+'author = {Gal\''{a}n, P.}, ' ... 
+'title = {Estudio sobre la biometr\''{i}a, folidosis, dise\={n}o y coloraci\''{o}n de \emph{Lacerta schreiberi} {B}edriaga, 1878. ({S}auria, {L}acertidae)}, ' ... 
 'journal = {Alytes}, ' ... 
 'year = {1984}, ' ... 
 'volume = {2}, ' ... 
@@ -647,9 +640,9 @@ bibkey = 'Galan1984'; type = 'article'; bib = [ ...
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'Galan1989'; type = 'article'; bib = [ ...
-'author = {Galán, P.}, ' ... 
-'title = {Notas sobre los ciclos de actividad de Lacerta schreiberi Bedriaga, 1878, en Galicia}, ' ... 
-'journal = {Treballs de la Societat Catalana d`Ictiologia i Herpetologia}, ' ... 
+'author = {Gal\''{a}n, P.}, ' ... 
+'title = {Notas sobre los ciclos de actividad de \emph{Lacerta schreiberi} {B}edriaga, 1878, en {G}alicia}, ' ... 
+'journal = {Treballs de la Societat Catalana d''Ictiologia i Herpetologia}, ' ... 
 'year = {1989}, ' ... 
 'volume = {2}, ' ... 
 'pages = {250-265}'];
@@ -665,8 +658,8 @@ bibkey = 'Kooy2010'; type = 'Book'; bib = [ ...  % used in setting of chemical p
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ' bib, '}'';'];
 %
 bibkey = 'Marco1994'; type = 'article'; bib = [ ...
-'author = {Marco, A., Pérez-Mellado, V., Gil, M.}, ' ... 
-'title = {Reproductive strategy in a montane population of the lizard Lacerta schreiberi (Sauria: Lacertidae)}, ' ... 
+'author = {Marco, A. and P\''{e}rez-Mellado, V. and Gil, M.}, ' ... 
+'title = {Reproductive strategy in a montane population of the lizard \emph{Lacerta schreiberi} ({S}auria: {L}acertidae)}, ' ... 
 'journal = {Herpetological Journal}, ' ... 
 'year = {1994}, ' ... 
 'volume = {4}, ' ... 
@@ -675,9 +668,9 @@ metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'Marco2011'; type = 'incollection'; bib = [ ...
 'author = {Marco, A.}, ' ... 
-'title = {Lagarto verdinegro  Lacerta schreiberi}, ' ... 
-'editor = {Salvador, A., Marco, A.}, ' ... 
-'booktitle = {Enciclopedia Virtual de los Vertebrados Españoles}, ' ... 
+'title = {Lagarto verdinegro - \emph{Lacerta schreiberi}}, ' ... 
+'editor = {Salvador, A. and Marco, A.}, ' ... 
+'booktitle = {Enciclopedia Virtual de los Vertebrados Espa\~{n}oles}, ' ... 
 'publisher = {Museo Nacional de Ciencias Naturales, Madrid}, ' ... 
 'year = {2011}, ' ... 
 'howpublished = {\url{http://www.vertebradosibericos.org/}}'];
@@ -685,7 +678,7 @@ metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'Salvador1988'; type = 'article'; bib = [ ...
 'author = {Salvador, A.}, ' ... 
-'title = {Die populationsstruktur von lizard Lacerta schreiberi (Sauria: Lacertidae)}, ' ... 
+'title = {Die populationsstruktur von lizard \emph{Lacerta schreiberi} ({S}auria: {L}acertidae)}, ' ... 
 'journal = {Jb. Feldherpetologie}, ' ... 
 'year = {1988}, ' ... 
 'volume = {2}, ' ... 
@@ -693,7 +686,7 @@ bibkey = 'Salvador1988'; type = 'article'; bib = [ ...
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'Monasterio2013'; type = 'article'; bib = [ ...
-'author = {Monasterio, C., Shoo, L. P., Salvador, A., Iraeta, P., D?az, J. A.}, ' ... 
+'author = {Monasterio, C. and Shoo, L. P. and Salvador, A. and Iraeta, P. and Diaz, J. A.}, ' ... 
 'title = {High temperature constrains reproductive success in a temperate lizard: implications for distribution range limits and the impacts of climate change}, ' ... 
 'journal = {Journal of Zoology}, ' ... 
 'year = {2013}, ' ... 
